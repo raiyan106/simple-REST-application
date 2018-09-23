@@ -1,16 +1,16 @@
 module.exports = [
     {
-        id:'1',
+        id: 1,
         genre:'HORROR'
         
     },
 
     {
-        id:'2',
+        id: 2,
         genre:'DRAMA'
     },
     {
-        id:'3',
+        id: 3,
         genre:'FANTASY'
     }
 ]
