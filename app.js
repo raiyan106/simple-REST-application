@@ -63,6 +63,23 @@ app.post('/api/genre',(req,res)=>{
 });
 
 
+
+//Put/Update Requests
+
+app.put('/api/genre/:id',(req,res)=>{
+    const MovieGenre = data.find((item)=> item.id === parseInt(req.params.id));
+    if(!MovieGenre) return res.status(404).send('The Movie Genre was not found');
+
+    const validationResult = validateGenre(req.body);
+    if(validationResult.error) return res.status(400).send(`${validationResult.error.details[0].message}`);
+
+    MovieGenre.genre = validationResult.value.genre
+    res.send(MovieGenre);
+
+
+});
+
+
 const port = process.env.PORT || 3000;
 app.listen(port, ()=>{
     console.log(`App listening on port ${port}`);
