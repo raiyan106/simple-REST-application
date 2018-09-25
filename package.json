@@ -4,12 +4,15 @@
   "description": "A simple REST application",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./app.js"
   },
   "author": "raiyan khan",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "joi": "^13.6.0"
+    "joi": "^13.6.0",
+    "mongoose": "^5.0.1"
   }
 }
