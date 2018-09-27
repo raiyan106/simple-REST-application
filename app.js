@@ -1,5 +1,6 @@
 const express = require('express');
 const genres = require('./routes/genres');
+const users = require('./routes/users');
 const connectionObj = require('./connection/connectToMongoose');
 
 
@@ -13,14 +14,7 @@ app.use('/',(req,res,next)=>{
     next();
 });
 app.use('/',genres);
-
-
-
-
-
-
-
-
+app.use('/',users);
 
 
 const port = process.env.PORT || 3000;

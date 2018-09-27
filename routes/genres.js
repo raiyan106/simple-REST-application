@@ -1,32 +1,19 @@
-const mongoose = require('mongoose');
 const express = require('express');
-const Joi = require('joi'); 
+const {Genres,validateGenre} = require('../models/genresModel');
 
 const router = express.Router();
 
 
 
-const genreSchema = new mongoose.Schema({
-    genre: {
-        type:String,
-        required:true,
-        minlength: 5,
-        maxlength: 25
-    }
-});
-
-const Genres = mongoose.model('Genres',genreSchema);
-
-
 
 //GET requests
-router.get('/api/genre', async (req,res)=>{
+router.get('/api/genres', async (req,res)=>{
     const genres = await Genres.find().sort('genre');
     res.send(genres);
 });
 
 
-router.get('/api/genre/:id', async (req,res) =>{
+router.get('/api/genres/:id', async (req,res) =>{
 
     const genre = await Genres.findById(req.params.id);
     if(!genre)  return res.status(404).send('The Specific Genre not found');
@@ -41,7 +28,7 @@ router.get('/api/genre/:id', async (req,res) =>{
 
 //POST Requests
 
-router.post('/api/genre', async (req,res)=>{
+router.post('/api/genres', async (req,res)=>{
 
     const validationResult = validateGenre(req.body); 
     if(validationResult.error)
@@ -66,7 +53,7 @@ router.post('/api/genre', async (req,res)=>{
 
 //Put/Update Requests
 
-router.put('/api/genre/:id',async (req,res)=>{
+router.put('/api/genres/:id',async (req,res)=>{
 
     const validationResult = validateGenre(req.body);
     if(validationResult.error) return res.status(400).send(`${validationResult.error.details[0].message}`);
@@ -84,7 +71,7 @@ router.put('/api/genre/:id',async (req,res)=>{
  
 //Delete requests
 
-router.delete('/api/genre/:id',async (req,res)=>{
+router.delete('/api/genres/:id',async (req,res)=>{
 
     const genre = await Genres.findByIdAndRemove(req.params.id);
 
@@ -92,18 +79,5 @@ router.delete('/api/genre/:id',async (req,res)=>{
     res.send(genre);
 
 });
-
-
-//Build validation Scheme
-
-function validateGenre(requestBody){
-    const schema = {
-        genre: Joi.string().uppercase().min(5).required()
-    };
-
-    const {value, error} = Joi.validate(requestBody,schema);
-    return {value, error};
-    
-}
 
 module.exports = router
