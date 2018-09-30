@@ -1,4 +1,6 @@
-<h1> A RESTful API on Movie Genre collection </h1>
+<h1><em>Filmify</em></h1> 
+
+<h3>A RESTful API on Movie Genre collection </h3>
 
 <p> A web application based on RESTful API implementation & usage using NodeJS, Express, and Joi (for validating incoming request bodies) </p>
 
