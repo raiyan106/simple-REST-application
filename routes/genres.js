@@ -1,3 +1,5 @@
+const auth = require('../middleware/auths');
+const admin = require('../middleware/admin');
 const express = require('express');
 const {Genres,validateGenre} = require('../models/genresModel');
 
@@ -29,7 +31,8 @@ router.get('/api/genres/:id', async (req,res) =>{
 
 //POST Requests
 
-router.post('/api/genres', async (req,res)=>{
+router.post('/api/genres',auth, async (req,res)=>{
+
 
     const validationResult = validateGenre(req.body); 
     if(validationResult.error)
@@ -72,7 +75,7 @@ router.put('/api/genres/:id',async (req,res)=>{
  
 //Delete requests
 
-router.delete('/api/genres/:id',async (req,res)=>{
+router.delete('/api/genres/:id',[auth,admin],async (req,res)=>{
 
     const genre = await Genres.findByIdAndRemove(req.params.id);
 

@@ -1,6 +1,9 @@
+const auth = require('../middleware/auths');
 const express = require('express');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const {RegisterUsers,validateRegistration} = require('../models/registerUsersModel');
 
 const router = express.Router();
@@ -9,10 +12,12 @@ const router = express.Router();
 
 
 //GET requests
-router.get('/api/registerUsers', async (req,res)=>{
-    const registeredUsers = await RegisterUsers.find().sort('name');
+router.get('/api/registerUsers/me',auth, async (req,res)=>{
+
+    const registeredUser = await RegisterUsers.findById(req.user._id).select('-password');
+    
     //console.log(registeredUsers);
-    res.send(registeredUsers);
+    res.send(registeredUser);
 });
 
 
@@ -44,7 +49,8 @@ router.post('/api/registerUsers', async (req,res)=>{
 
     await registeringUser.save();
     
-    res.send(_.pick(registeringUser,['_id','name','email']));
+    const token = registeringUser.generateAuthToken();
+    res.header('x-auth-token',token).send(_.pick(registeringUser,['_id','name','email']));
     
 });
 

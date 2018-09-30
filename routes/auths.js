@@ -40,7 +40,7 @@ router.post('/api/auths', async (req,res)=>{
     const validPass = await bcrypt.compare(validationResult.value.password,loggingUser.password);
     if(!validPass) return res.send(400).send('Invalid email/password');
 
-    const token = jwt.sign({_id: loggingUser._id},config.get('jwtPrivateKey'));
+    const token = loggingUser.generateAuthToken();
     res.send(token);
     
     
