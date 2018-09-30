@@ -41,7 +41,7 @@ router.post('/api/hires', async (req,res)=>{
 
     if(movie.numberInStock === 0) return res.status(400).send('Movie is out of stock');
 
-    let hire = new Hire({
+    const hire = new Hire({
         user:{
             _id: user._id,
             name: user.name,
@@ -55,7 +55,7 @@ router.post('/api/hires', async (req,res)=>{
         }
     });
 
-    hire = await hire.save();
+    await hire.save();
 
     movie.numberInStock--;
     movie.save();

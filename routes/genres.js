@@ -16,6 +16,7 @@ router.get('/api/genres', async (req,res)=>{
 router.get('/api/genres/:id', async (req,res) =>{
 
     const genre = await Genres.findById(req.params.id);
+    
     if(!genre)  return res.status(404).send('The Specific Genre not found');
 
     res.send(genre);
@@ -42,8 +43,8 @@ router.post('/api/genres', async (req,res)=>{
     //     genre:validationResult.value.genre
     // }
 
-    let genre = new Genres({genre: validationResult.value.genre});
-    genre = await genre.save(); 
+    const genre = new Genres({genre: validationResult.value.genre});
+    await genre.save(); 
     
     res.send(genre);
     

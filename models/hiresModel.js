@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Joi = require('joi'); 
 
 
+
 const hireSchema = new mongoose.Schema({
     user:{
         type: new mongoose.Schema({
@@ -55,10 +56,10 @@ const hireSchema = new mongoose.Schema({
 
 const Hire = mongoose.model('Hire',hireSchema);
 
-function validateHire(requestBody){
+function validateHire(requestBody){ 
     const Schema ={
-        userId: Joi.string().required(),
-        movieId: Joi.string().required()
+        userId: Joi.objectId().required(),
+        movieId: Joi.objectId().required()
     }
 
     const {value, error} = Joi.validate(requestBody,Schema);
