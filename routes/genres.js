@@ -10,8 +10,10 @@ const router = express.Router();
 
 //GET requests
 router.get('/api/genres', async (req,res)=>{
+    //throw new Error('could not get genres');
     const genres = await Genres.find().sort('genre');
     res.send(genres);
+  
 });
 
 

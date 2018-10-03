@@ -12,11 +12,11 @@ const router = express.Router();
 
 
 //GET requests
-router.get('/api/registerUsers', async (req,res)=>{
-    const registeredUsers = await RegisterUsers.find().sort('name');
-    //console.log(registeredUsers);
-    res.send(registeredUsers);
-});
+// router.get('/api/registerUsers', async (req,res)=>{
+//     const registeredUsers = await RegisterUsers.find().sort('name');
+//     //console.log(registeredUsers);
+//     res.send(registeredUsers);
+// });
 
 
 
